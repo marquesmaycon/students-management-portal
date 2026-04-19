@@ -5,12 +5,15 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import App from "./app.tsx";
-import { queryClient } from "./libs/tanstack-query.ts";
+import { ThemeProvider } from "./components/theme-provider.tsx";
+import { queryClient } from "./lib/tanstack-query.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </ThemeProvider>
   </StrictMode>,
 );

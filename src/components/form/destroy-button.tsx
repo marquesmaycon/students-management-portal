@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 type DestroyButtonProps = ComponentProps<typeof Button> & {
   label?: string;
@@ -33,7 +33,7 @@ export function DestroyButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button type="button" {...props} variant="destructive">
+        <Button type="button" size="xs" {...props} variant="destructive">
           {label || "Excluir"} <Trash />
         </Button>
       </AlertDialogTrigger>

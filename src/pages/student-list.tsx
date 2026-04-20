@@ -12,20 +12,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { deleteStudent, listStudents } from "@/features/students/service";
+import {
+  deleteStudentOptions,
+  studentListOptions,
+} from "@/features/students/query-options";
 
 export default function StudentList() {
-  const { data: students } = useQuery({
-    queryKey: ["students"],
-    queryFn: listStudents,
-  });
-
-  const { mutateAsync: destroy } = useMutation({
-    mutationFn: deleteStudent,
-    onSuccess: (_, __, ___, { client }) => {
-      client.invalidateQueries({ queryKey: ["students"] });
-    },
-  });
+  const { data: students } = useQuery(studentListOptions);
+  const { mutateAsync: destroy } = useMutation(deleteStudentOptions);
 
   return (
     <div className="page-wrapper">
@@ -39,7 +33,6 @@ export default function StudentList() {
       </div>
       <div className="p-4">
         <Table>
-          <TableCaption>Lista de todos os alunos</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-25">Nome</TableHead>
@@ -70,6 +63,7 @@ export default function StudentList() {
               </TableRow>
             ))}
           </TableBody>
+          <TableCaption>Lista de todos os alunos</TableCaption>
         </Table>
       </div>
     </div>

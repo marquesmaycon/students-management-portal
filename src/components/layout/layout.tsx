@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 
 import { AppSidebar } from "../sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "../ui/sidebar";
+import { Toaster } from "../ui/sonner";
 import { TooltipProvider } from "../ui/tooltip";
 import { Footer } from "./footer";
 import { Header } from "./header";
@@ -22,6 +23,7 @@ export function Layout() {
           <Footer />
         </SidebarInset>
       </SidebarProvider>
+      <Toaster richColors />
     </TooltipProvider>
   );
 }

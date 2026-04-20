@@ -1,17 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 
-import { getStudentById } from "@/features/students/service";
+import { studentByIdOptions } from "@/features/students/query-options";
 import { StudentForm } from "@/features/students/student-form";
 
 export default function StudentEdition() {
   const { id } = useParams<{ id: string }>();
 
-  const { data: student } = useQuery({
-    queryKey: ["students", id],
-    queryFn: () => getStudentById(id!),
-    enabled: !!id,
-  });
+  const { data: student } = useQuery(studentByIdOptions(id));
 
   return (
     <div className="page-wrapper">

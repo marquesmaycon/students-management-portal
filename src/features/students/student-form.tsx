@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { ArrowLeft, Save } from "lucide-react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,10 +14,12 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
-import { createStudent, updateStudent } from "./service";
+import { createStudentOptions, updateStudentOptions } from "./query-options";
 import { type Student, type StudentSchema, studentSchema } from "./validation";
 
 export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
+  const nav = useNavigate();
+
   const form = useForm<StudentSchema>({
     resolver: zodResolver(studentSchema),
     defaultValues: {
@@ -27,13 +30,10 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
     },
   });
 
-  const { mutateAsync: create } = useMutation({
-    mutationFn: createStudent,
-  });
-  const { mutateAsync: update } = useMutation({
-    mutationFn: async (data: StudentSchema) =>
-      await updateStudent(defaultValues!.id, data),
-  });
+  const { mutateAsync: create } = useMutation(createStudentOptions);
+  const { mutateAsync: update } = useMutation(
+    updateStudentOptions(defaultValues?.id),
+  );
 
   useEffect(() => {
     if (defaultValues) {
@@ -46,6 +46,7 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
       await update(data);
     } else {
       await create(data);
+      nav("/students");
     }
   }
 

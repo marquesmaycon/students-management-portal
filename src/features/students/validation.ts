@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 import z from "zod";
 
 export const studentSchema = z.object({
@@ -13,6 +14,7 @@ export const studentSchema = z.object({
 
 export const studentWithIdSchema = studentSchema.extend({
   id: z.string(),
+  createdAt: z.instanceof(Timestamp),
 });
 
 export type Student = z.infer<typeof studentWithIdSchema>;

@@ -5,6 +5,8 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
+  query,
   updateDoc,
 } from "firebase/firestore";
 
@@ -15,7 +17,8 @@ import type { CourseSchema } from "./validation";
 const coursesCol = collection(db, "courses").withConverter(courseConverter);
 
 export async function listCourses() {
-  const coursesSnapshot = await getDocs(coursesCol);
+  const q = query(coursesCol, orderBy("createdAt", "desc"));
+  const coursesSnapshot = await getDocs(q);
   return coursesSnapshot.docs.map((doc) => doc.data());
 }
 

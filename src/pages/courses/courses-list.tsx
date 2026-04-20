@@ -37,6 +37,7 @@ export default function CoursesList() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-25">Nome</TableHead>
+              <TableHead>Criado em</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
@@ -44,6 +45,9 @@ export default function CoursesList() {
             {courses?.map((course) => (
               <TableRow key={course.id}>
                 <TableCell className="font-medium">{course.name}</TableCell>
+                <TableCell>
+                  {course.createdAt.toDate().toLocaleDateString("pt-BR")}
+                </TableCell>
                 <TableCell className="space-x-2 text-right">
                   <Button asChild size="xs">
                     <Link to={`/courses/${course.id}`}>

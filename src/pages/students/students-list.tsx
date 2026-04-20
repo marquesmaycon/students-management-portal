@@ -39,17 +39,19 @@ export default function StudentsList() {
               <TableHead className="w-25">Nome</TableHead>
               <TableHead>E-mail</TableHead>
               <TableHead>Idade</TableHead>
-              <TableHead className="text-right">Curso</TableHead>
+              <TableHead>Criado em</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {students?.map((student) => (
-              <TableRow>
+              <TableRow key={student.id}>
                 <TableCell className="font-medium">{student.name}</TableCell>
                 <TableCell>{student.email}</TableCell>
                 <TableCell>{student.age}</TableCell>
-                <TableCell className="text-right">{student.course}</TableCell>
+                <TableCell>
+                  {student.createdAt.toDate().toLocaleDateString("pt-BR")}
+                </TableCell>
                 <TableCell className="space-x-2 text-right">
                   <Button asChild size="xs">
                     <Link to={`/students/${student.id}`}>

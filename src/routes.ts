@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router";
 
-import { Layout } from "./components/layout/layout";
+import { AuthLayout } from "./components/layout/auth/auth-layout";
+import { DashboardLayout } from "./components/layout/dashboard/dashboard-layout";
+import { SignInForm } from "./features/auth/sign-in-form";
 import CourseCreation from "./pages/courses/course-creation";
 import CourseView from "./pages/courses/course-view";
 import CoursesList from "./pages/courses/courses-list";
@@ -12,7 +14,7 @@ import StudentsList from "./pages/students/students-list";
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: Layout,
+    Component: DashboardLayout,
     children: [
       {
         index: true,
@@ -41,6 +43,16 @@ export const router = createBrowserRouter([
       {
         path: "/courses/new",
         Component: CourseCreation,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "login",
+        Component: SignInForm,
       },
     ],
   },

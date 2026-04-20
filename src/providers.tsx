@@ -3,6 +3,7 @@ import { Toaster } from "sonner";
 
 import { ThemeProvider } from "./components/layout/theme-provider";
 import { TooltipProvider } from "./components/ui/tooltip";
+import { AuthProvider } from "./features/auth/auth-context";
 import { queryClient } from "./lib/tanstack-query";
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -10,7 +11,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <TooltipProvider>
-          {children}
+          <AuthProvider>{children}</AuthProvider>
           <Toaster richColors />
         </TooltipProvider>
       </ThemeProvider>

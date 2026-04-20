@@ -12,7 +12,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 
-import { db } from "../../firebase/app";
+import { db } from "../../lib/firebase";
 import { studentsCol } from "../students/service";
 import { courseConverter } from "./converter";
 import type { CourseSchema } from "./validation";

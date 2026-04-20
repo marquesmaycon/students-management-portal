@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-import { db } from "../../firebase/app";
+import { db } from "../../lib/firebase";
 import { studentConverter } from "./converter";
 import type { StudentSchema } from "./validation";
 

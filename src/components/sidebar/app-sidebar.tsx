@@ -41,11 +41,11 @@ const data = {
       items: [
         {
           title: "Listagem",
-          url: "#",
+          url: "/students",
         },
         {
           title: "Novo Aluno",
-          url: "#",
+          url: "/students/new",
         },
       ],
     },

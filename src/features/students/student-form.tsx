@@ -2,20 +2,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { ArrowLeft, RotateCcw, Save } from "lucide-react";
 import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 
+import { createInputField } from "@/components/form/input-field";
 import { Button } from "@/components/ui/button";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { FieldGroup } from "@/components/ui/field";
 
 import { createStudentOptions, updateStudentOptions } from "./query-options";
 import { type Student, type StudentSchema, studentSchema } from "./validation";
+
+const StudentInput = createInputField<StudentSchema>();
 
 export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
   const nav = useNavigate();
@@ -60,70 +57,17 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
       className="flex h-full flex-col space-y-12 p-4"
     >
       <FieldGroup>
-        <Controller
-          name="name"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="name">Nome</FieldLabel>
-              <Input
-                {...field}
-                id="name"
-                aria-invalid={fieldState.invalid}
-                placeholder="José da Silva"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-        <Controller
+        <StudentInput name="name" label="Nome" placeholder="José da Silva" />
+        <StudentInput
           name="email"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="email">E-mail</FieldLabel>
-              <Input
-                {...field}
-                id="email"
-                aria-invalid={fieldState.invalid}
-                placeholder="jose.silva@example.com"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
+          label="E-mail"
+          placeholder="jose.silva@example.com"
         />
-        <Controller
-          name="age"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="age">Idade</FieldLabel>
-              <Input
-                {...field}
-                id="age"
-                aria-invalid={fieldState.invalid}
-                placeholder="25"
-                type="number"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-        <Controller
+        <StudentInput name="age" label="Idade" placeholder="25" type="number" />
+        <StudentInput
           name="course"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="course">Curso</FieldLabel>
-              <Input
-                {...field}
-                id="course"
-                aria-invalid={fieldState.invalid}
-                placeholder="Ciência da Computação"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
+          label="Curso"
+          placeholder="Ciência da Computação"
         />
       </FieldGroup>
 

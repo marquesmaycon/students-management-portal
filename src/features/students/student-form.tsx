@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, RotateCcw, Save } from "lucide-react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -30,8 +30,9 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
     },
   });
 
-  const { mutateAsync: create } = useMutation(createStudentOptions);
-  const { mutateAsync: update } = useMutation(
+  const { mutateAsync: create, isPending: isCreating } =
+    useMutation(createStudentOptions);
+  const { mutateAsync: update, isPending: isUpdating } = useMutation(
     updateStudentOptions(defaultValues?.id),
   );
 
@@ -49,6 +50,8 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
       nav("/students");
     }
   }
+
+  const isMutating = isCreating || isUpdating;
 
   return (
     <form
@@ -124,18 +127,20 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
         />
       </FieldGroup>
 
-      <div className="mt-auto flex w-full justify-between gap-2">
-        <Button type="button" variant="outline">
-          Voltar <ArrowLeft />
+      <div className="mt-auto flex w-full items-center justify-between gap-2">
+        <Button type="button" variant="outline" asChild>
+          <Link to="/students">
+            Voltar <ArrowLeft />
+          </Link>
         </Button>
-        <div className="space-x-4">
-          <Button type="button" variant="outline" onClick={() => form.reset()}>
-            Resetar
-          </Button>
-          <Button type="submit">
-            Salvar <Save />
-          </Button>
-        </div>
+
+        <Button type="button" variant="secondary" onClick={() => form.reset()}>
+          Resetar <RotateCcw />
+        </Button>
+
+        <Button type="submit" className="ml-auto" loading={isMutating}>
+          Salvar <Save />
+        </Button>
       </div>
     </form>
   );

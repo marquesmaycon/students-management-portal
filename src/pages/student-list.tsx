@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Plus } from "lucide-react";
+import { Pen, Plus, Trash } from "lucide-react";
 import { Link } from "react-router";
 
+import { DestroyButton } from "@/components/destroy-button";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -50,15 +51,15 @@ export default function StudentList() {
                 <TableCell>{student.age}</TableCell>
                 <TableCell className="text-right">{student.course}</TableCell>
                 <TableCell className="space-x-2 text-right">
-                  <Button asChild>
-                    <Link to={`/students/${student.id}`}>Visualizar</Link>
+                  <Button asChild size="xs">
+                    <Link to={`/students/${student.id}`}>
+                      Editar <Pen />
+                    </Link>
                   </Button>
-                  <Button
-                    variant="destructive"
-                    onClick={() => destroy(student.id)}
-                  >
-                    Excluir
-                  </Button>
+                  <DestroyButton
+                    size="xs"
+                    destroy={() => destroy(student.id)}
+                  />
                 </TableCell>
               </TableRow>
             ))}

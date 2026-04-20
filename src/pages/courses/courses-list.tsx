@@ -55,6 +55,7 @@ export default function CoursesList() {
                     </Link>
                   </Button>
                   <DestroyButton
+                    size="xs"
                     destroy={() => destroy(course.id)}
                     title="Excluir curso"
                   />

@@ -1,17 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ArrowLeft, RotateCcw, Save } from "lucide-react";
 import { useEffect } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
+import { FormActions } from "@/components/form/form-actions";
 import { createInputField } from "@/components/form/input-field";
 import { createSelectField } from "@/components/form/select-field";
-import { Button } from "@/components/ui/button";
 import { FieldGroup } from "@/components/ui/field";
 
 import { courseListOptions } from "../courses/query-options";
-import { createStudentOptions, updateStudentOptions } from "./query-options";
+import {
+  createStudentOptions,
+  deleteStudentOptions,
+  updateStudentOptions,
+} from "./query-options";
 import { type Student, type StudentSchema, studentSchema } from "./validation";
 
 const StudentInput = createInputField<StudentSchema>();
@@ -38,6 +42,13 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
   const { mutateAsync: update, isPending: isUpdating } = useMutation(
     updateStudentOptions(defaultValues?.id),
   );
+  const { mutateAsync: destroy, isPending: isDestroying } = useMutation({
+    ...deleteStudentOptions,
+    onSuccess: () => {
+      toast.success("Aluno excluído com sucesso!");
+      nav("/students");
+    },
+  });
 
   const selectedCourseId = useWatch({
     control: form.control,
@@ -69,7 +80,7 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
     }
   }
 
-  const isMutating = isCreating || isUpdating;
+  const isMutating = isCreating || isUpdating || isDestroying;
 
   return (
     <FormProvider {...form}>
@@ -102,25 +113,11 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
           />
         </FieldGroup>
 
-        <div className="mt-auto flex w-full items-center justify-between gap-2">
-          <Button type="button" variant="outline" asChild>
-            <Link to="/students">
-              Voltar <ArrowLeft />
-            </Link>
-          </Button>
-
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => form.reset()}
-          >
-            Resetar <RotateCcw />
-          </Button>
-
-          <Button type="submit" className="ml-auto" loading={isMutating}>
-            Salvar <Save />
-          </Button>
-        </div>
+        <FormActions
+          backLink="/students"
+          isMutating={isMutating}
+          destroy={defaultValues ? () => destroy(defaultValues.id) : undefined}
+        />
       </form>
     </FormProvider>
   );

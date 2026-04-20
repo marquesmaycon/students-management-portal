@@ -1,15 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { ArrowLeft, RotateCcw, Save } from "lucide-react";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
+import { FormActions } from "@/components/form/form-actions";
 import { createInputField } from "@/components/form/input-field";
-import { Button } from "@/components/ui/button";
 import { FieldGroup } from "@/components/ui/field";
 
-import { createCourseOptions, updateCourseOptions } from "./query-options";
+import {
+  createCourseOptions,
+  deleteCourseOptions,
+  updateCourseOptions,
+} from "./query-options";
 import { type Course, type CourseSchema, courseSchema } from "./validation";
 
 const CourseInput = createInputField<CourseSchema>();
@@ -27,6 +31,13 @@ export function CourseForm({ defaultValues }: { defaultValues?: Course }) {
   const { mutateAsync: update, isPending: isUpdating } = useMutation(
     updateCourseOptions(defaultValues?.id),
   );
+  const { mutateAsync: destroy, isPending: isDestroying } = useMutation({
+    ...deleteCourseOptions,
+    onSuccess: () => {
+      toast.success("Curso excluído com sucesso!");
+      nav("/courses");
+    },
+  });
 
   useEffect(() => {
     if (defaultValues) {
@@ -43,7 +54,7 @@ export function CourseForm({ defaultValues }: { defaultValues?: Course }) {
     }
   }
 
-  const isMutating = isCreating || isUpdating;
+  const isMutating = isCreating || isUpdating || isDestroying;
 
   return (
     <FormProvider {...form}>
@@ -56,25 +67,11 @@ export function CourseForm({ defaultValues }: { defaultValues?: Course }) {
           <CourseInput name="name" label="Nome" />
         </FieldGroup>
 
-        <div className="mt-auto flex w-full items-center justify-between gap-2">
-          <Button type="button" variant="outline" asChild>
-            <Link to="/courses">
-              Voltar <ArrowLeft />
-            </Link>
-          </Button>
-
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => form.reset()}
-          >
-            Resetar <RotateCcw />
-          </Button>
-
-          <Button type="submit" className="ml-auto" loading={isMutating}>
-            Salvar <Save />
-          </Button>
-        </div>
+        <FormActions
+          backLink="/courses"
+          isMutating={isMutating}
+          destroy={defaultValues ? () => destroy(defaultValues.id) : undefined}
+        />
       </form>
     </FormProvider>
   );

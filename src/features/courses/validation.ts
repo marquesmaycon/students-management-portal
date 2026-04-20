@@ -3,11 +3,11 @@ import z from "zod";
 
 export const courseSchema = z.object({
   name: z.string().min(1, "O nome é obrigatório"),
-  createdAt: z.instanceof(Timestamp),
 });
 
 export const coursetWithIdSchema = courseSchema.extend({
   id: z.string(),
+  createdAt: z.instanceof(Timestamp),
 });
 
 export type Course = z.infer<typeof coursetWithIdSchema>;

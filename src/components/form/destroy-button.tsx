@@ -33,7 +33,7 @@ export function DestroyButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button type="button" size="xs" {...props} variant="destructive">
+        <Button type="button" {...props} variant="destructive">
           {label || "Excluir"} <Trash />
         </Button>
       </AlertDialogTrigger>

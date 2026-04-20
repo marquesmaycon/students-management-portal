@@ -61,6 +61,7 @@ export default function StudentsList() {
                     </Link>
                   </Button>
                   <DestroyButton
+                    size="xs"
                     title="Excluir aluno"
                     destroy={() => destroy(student.id)}
                   />

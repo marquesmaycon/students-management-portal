@@ -67,7 +67,6 @@ export const deleteCourseOptions = mutationOptions({
 
     return { previousCourses };
   },
-
   onSuccess: () => {
     toast.success("Curso excluído com sucesso!");
   },

@@ -59,7 +59,7 @@ export async function updateCourse(id: string, data: CourseSchema) {
   await batch.commit();
 }
 
-export async function deleteCourse(id: string) {
+export async function deleteCourse(id?: string) {
   const docRef = doc(coursesCol, id);
   await deleteDoc(docRef);
 }

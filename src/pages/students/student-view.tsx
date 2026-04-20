@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { studentByIdOptions } from "@/features/students/query-options";
 import { StudentForm } from "@/features/students/student-form";
 
-export default function StudentEdition() {
+export default function StudentView() {
   const { id } = useParams<{ id: string }>();
 
   const { data: student } = useQuery(studentByIdOptions(id));

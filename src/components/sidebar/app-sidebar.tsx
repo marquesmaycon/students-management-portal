@@ -56,11 +56,11 @@ const data = {
       items: [
         {
           title: "Listagem",
-          url: "#",
+          url: "/courses",
         },
         {
           title: "Novo Curso",
-          url: "#",
+          url: "/courses/new",
         },
       ],
     },

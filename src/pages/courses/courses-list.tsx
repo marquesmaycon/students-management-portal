@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Pen, Plus, Trash } from "lucide-react";
+import { Pen, Plus } from "lucide-react";
 import { Link } from "react-router";
 
 import { DestroyButton } from "@/components/destroy-button";
@@ -14,21 +14,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  deleteStudentOptions,
-  studentListOptions,
-} from "@/features/students/query-options";
+  courseListOptions,
+  deleteCourseOptions,
+} from "@/features/courses/query-options";
 
-export default function StudentList() {
-  const { data: students } = useQuery(studentListOptions);
-  const { mutateAsync: destroy } = useMutation(deleteStudentOptions);
+export default function CoursesList() {
+  const { data: courses } = useQuery(courseListOptions);
+  const { mutateAsync: destroy } = useMutation(deleteCourseOptions);
 
   return (
     <div className="page-wrapper">
       <div className="flex items-center justify-between p-4">
-        <h1 className="font-serif text-4xl font-bold">Lista de Alunos</h1>
+        <h1 className="font-serif text-4xl font-bold">Lista de Cursos</h1>
         <Button asChild>
-          <Link to="/students/new">
-            Novo Aluno <Plus />
+          <Link to="/courses/new">
+            Novo Curso <Plus />
           </Link>
         </Button>
       </div>
@@ -37,34 +37,25 @@ export default function StudentList() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-25">Nome</TableHead>
-              <TableHead>E-mail</TableHead>
-              <TableHead>Idade</TableHead>
-              <TableHead className="text-right">Curso</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {students?.map((student) => (
+            {courses?.map((course) => (
               <TableRow>
-                <TableCell className="font-medium">{student.name}</TableCell>
-                <TableCell>{student.email}</TableCell>
-                <TableCell>{student.age}</TableCell>
-                <TableCell className="text-right">{student.course}</TableCell>
+                <TableCell className="font-medium">{course.name}</TableCell>
                 <TableCell className="space-x-2 text-right">
                   <Button asChild size="xs">
-                    <Link to={`/students/${student.id}`}>
+                    <Link to={`/courses/${course.id}`}>
                       Editar <Pen />
                     </Link>
                   </Button>
-                  <DestroyButton
-                    size="xs"
-                    destroy={() => destroy(student.id)}
-                  />
+                  <DestroyButton size="xs" destroy={() => destroy(course.id)} />
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          <TableCaption>Lista de todos os alunos</TableCaption>
+          <TableCaption>Lista de todos os cursos</TableCaption>
         </Table>
       </div>
     </div>

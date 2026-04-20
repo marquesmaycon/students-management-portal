@@ -1,18 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowLeft, RotateCcw, Save } from "lucide-react";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 
 import { createInputField } from "@/components/form/input-field";
+import { createSelectField } from "@/components/form/select-field";
 import { Button } from "@/components/ui/button";
 import { FieldGroup } from "@/components/ui/field";
 
+import { courseListOptions } from "../courses/query-options";
 import { createStudentOptions, updateStudentOptions } from "./query-options";
 import { type Student, type StudentSchema, studentSchema } from "./validation";
 
 const StudentInput = createInputField<StudentSchema>();
+const StudentSelect = createSelectField<StudentSchema>();
 
 export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
   const nav = useNavigate();
@@ -26,6 +29,8 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
       course: "",
     },
   });
+
+  const { data: courses } = useQuery(courseListOptions);
 
   const { mutateAsync: create, isPending: isCreating } =
     useMutation(createStudentOptions);
@@ -51,41 +56,58 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
   const isMutating = isCreating || isUpdating;
 
   return (
-    <form
-      id="student-form"
-      onSubmit={form.handleSubmit(onSubmit)}
-      className="flex h-full flex-col space-y-12 p-4"
-    >
-      <FieldGroup>
-        <StudentInput name="name" label="Nome" placeholder="José da Silva" />
-        <StudentInput
-          name="email"
-          label="E-mail"
-          placeholder="jose.silva@example.com"
-        />
-        <StudentInput name="age" label="Idade" placeholder="25" type="number" />
-        <StudentInput
-          name="course"
-          label="Curso"
-          placeholder="Ciência da Computação"
-        />
-      </FieldGroup>
+    <FormProvider {...form}>
+      <form
+        id="student-form"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex h-full flex-col space-y-12 p-4"
+      >
+        <FieldGroup>
+          <StudentInput name="name" label="Nome" placeholder="José da Silva" />
+          <StudentInput
+            name="email"
+            label="E-mail"
+            placeholder="jose.silva@example.com"
+          />
+          <StudentInput
+            name="age"
+            label="Idade"
+            placeholder="25"
+            type="number"
+          />
+          <StudentInput
+            name="course"
+            label="Curso"
+            placeholder="Ciência da Computação"
+          />
+          <StudentSelect
+            name="course"
+            label="Curso"
+            placeholder="Análise e Desenvolvimento de Sistemas"
+            options={courses?.map((c) => ({ label: c.name, value: c.id }))}
+          />
+        </FieldGroup>
 
-      <div className="mt-auto flex w-full items-center justify-between gap-2">
-        <Button type="button" variant="outline" asChild>
-          <Link to="/students">
-            Voltar <ArrowLeft />
-          </Link>
-        </Button>
+        <div className="mt-auto flex w-full items-center justify-between gap-2">
+          <Button type="button" variant="outline" asChild>
+            <Link to="/students">
+              Voltar <ArrowLeft />
+            </Link>
+          </Button>
 
-        <Button type="button" variant="secondary" onClick={() => form.reset()}>
-          Resetar <RotateCcw />
-        </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => form.reset()}
+          >
+            Resetar <RotateCcw />
+          </Button>
 
-        <Button type="submit" className="ml-auto" loading={isMutating}>
-          Salvar <Save />
-        </Button>
-      </div>
-    </form>
+          <Button type="submit" className="ml-auto" loading={isMutating}>
+            Salvar <Save />
+          </Button>
+        </div>
+      </form>
+    </FormProvider>
   );
 }

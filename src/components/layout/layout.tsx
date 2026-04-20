@@ -15,7 +15,7 @@ export function Layout() {
         <SidebarInset>
           <Header />
 
-          <div className="flex-1 px-4">
+          <div className="bg-accent/33 flex flex-1 flex-col p-2">
             <Outlet />
           </div>
 

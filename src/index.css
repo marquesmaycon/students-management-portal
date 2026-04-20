@@ -129,3 +129,9 @@
     @apply font-sans;
     }
 }
+
+@layer utilities {
+  .page-wrapper {
+    @apply bg-background flex flex-1 flex-col rounded-lg;
+  }
+}

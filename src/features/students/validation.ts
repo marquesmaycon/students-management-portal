@@ -9,7 +9,8 @@ export const studentSchema = z.object({
     .int("A idade deve ser um número inteiro")
     .min(18, "A idade deve ser pelo menos 18")
     .max(100, "A idade não pode ser maior que 100"),
-  course: z.string().min(1, "O curso é obrigatório"),
+  courseId: z.string().min(1, "O curso é obrigatório"),
+  courseName: z.string().min(1, "O curso é obrigatório"),
 });
 
 export const studentWithIdSchema = studentSchema.extend({

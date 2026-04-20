@@ -12,7 +12,9 @@ import { db } from "../../firebase/app";
 import { studentConverter } from "./converter";
 import type { StudentSchema } from "./validation";
 
-const studentsCol = collection(db, "students").withConverter(studentConverter);
+export const studentsCol = collection(db, "students").withConverter(
+  studentConverter,
+);
 
 export async function listStudents() {
   const studentsSnapshot = await getDocs(studentsCol);

@@ -8,9 +8,12 @@ import {
   orderBy,
   query,
   updateDoc,
+  where,
+  writeBatch,
 } from "firebase/firestore";
 
 import { db } from "../../firebase/app";
+import { studentsCol } from "../students/service";
 import { courseConverter } from "./converter";
 import type { CourseSchema } from "./validation";
 
@@ -39,8 +42,21 @@ export async function getCourseById(id: string) {
 }
 
 export async function updateCourse(id: string, data: CourseSchema) {
-  const docRef = doc(coursesCol, id);
-  await updateDoc(docRef, data);
+  const courseRef = doc(coursesCol, id);
+  await updateDoc(courseRef, data);
+
+  const studentsQuery = query(studentsCol, where("courseId", "==", id));
+  const querySnapshot = await getDocs(studentsQuery);
+  if (querySnapshot.empty) return;
+
+  const batch = writeBatch(db);
+
+  querySnapshot.forEach((studentDoc) => {
+    const studentRef = doc(studentsCol, studentDoc.id);
+    batch.update(studentRef, { courseName: data.name });
+  });
+
+  await batch.commit();
 }
 
 export async function deleteCourse(id: string) {

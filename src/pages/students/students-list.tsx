@@ -39,6 +39,7 @@ export default function StudentsList() {
               <TableHead className="w-25">Nome</TableHead>
               <TableHead>E-mail</TableHead>
               <TableHead>Idade</TableHead>
+              <TableHead>Curso</TableHead>
               <TableHead>Criado em</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
@@ -49,6 +50,7 @@ export default function StudentsList() {
                 <TableCell className="font-medium">{student.name}</TableCell>
                 <TableCell>{student.email}</TableCell>
                 <TableCell>{student.age}</TableCell>
+                <TableCell>{student.courseName}</TableCell>
                 <TableCell>
                   {student.createdAt.toDate().toLocaleDateString("pt-BR")}
                 </TableCell>

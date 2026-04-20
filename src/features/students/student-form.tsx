@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowLeft, RotateCcw, Save } from "lucide-react";
 import { useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 
 import { createInputField } from "@/components/form/input-field";
@@ -26,7 +26,8 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
       name: "",
       email: "",
       age: 0,
-      course: "",
+      courseId: "",
+      courseName: "",
     },
   });
 
@@ -37,6 +38,21 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
   const { mutateAsync: update, isPending: isUpdating } = useMutation(
     updateStudentOptions(defaultValues?.id),
   );
+
+  const selectedCourseId = useWatch({
+    control: form.control,
+    name: "courseId",
+  });
+
+  useEffect(() => {
+    if (!selectedCourseId || !courses) return;
+
+    const selectedCourse = courses.find((c) => c.id === selectedCourseId);
+
+    if (selectedCourse) {
+      form.setValue("courseName", selectedCourse.name);
+    }
+  }, [selectedCourseId, courses, form]);
 
   useEffect(() => {
     if (defaultValues) {
@@ -75,16 +91,14 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
             placeholder="25"
             type="number"
           />
-          <StudentInput
-            name="course"
-            label="Curso"
-            placeholder="Ciência da Computação"
-          />
           <StudentSelect
-            name="course"
+            name="courseId"
             label="Curso"
-            placeholder="Análise e Desenvolvimento de Sistemas"
-            options={courses?.map((c) => ({ label: c.name, value: c.id }))}
+            placeholder="Selecione um curso"
+            options={courses?.map(({ id, name }) => ({
+              value: id,
+              label: name,
+            }))}
           />
         </FieldGroup>
 

@@ -1,6 +1,7 @@
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { toast } from "sonner";
 
+import { studentListOptions } from "../students/query-options";
 import {
   createCourse,
   deleteCourse,
@@ -48,6 +49,7 @@ export const updateCourseOptions = (id?: string) =>
     },
     onSettled: (_, __, ___, ____, { client }) => {
       client.invalidateQueries(courseListOptions);
+      client.invalidateQueries(studentListOptions);
     },
   });
 
@@ -80,5 +82,6 @@ export const deleteCourseOptions = mutationOptions({
   },
   onSettled: (_, __, ___, ____, { client }) => {
     client.invalidateQueries(courseListOptions);
+    client.invalidateQueries(studentListOptions);
   },
 });

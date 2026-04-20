@@ -5,10 +5,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../ui/breadcrumb";
-import { Separator } from "../ui/separator";
-import { SidebarTrigger } from "../ui/sidebar";
-import { ThemeSwitcher } from "./theme-switcher";
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+
+import { ThemeSwitcher } from "../theme-switcher";
 
 export function Header() {
   return (

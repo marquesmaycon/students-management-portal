@@ -1,13 +1,14 @@
 import { Outlet } from "react-router";
 
-import { AppSidebar } from "../sidebar/app-sidebar";
-import { SidebarInset } from "../ui/sidebar";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+
 import { Footer } from "./footer";
 import { Header } from "./header";
 
-export function Layout() {
+export function DashboardLayout() {
   return (
-    <>
+    <SidebarProvider>
       <AppSidebar />
 
       <SidebarInset>
@@ -19,6 +20,6 @@ export function Layout() {
 
         <Footer />
       </SidebarInset>
-    </>
+    </SidebarProvider>
   );
 }

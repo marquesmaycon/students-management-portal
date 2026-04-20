@@ -42,7 +42,7 @@ export default function CoursesList() {
           </TableHeader>
           <TableBody>
             {courses?.map((course) => (
-              <TableRow>
+              <TableRow key={course.id}>
                 <TableCell className="font-medium">{course.name}</TableCell>
                 <TableCell className="space-x-2 text-right">
                   <Button asChild size="xs">

@@ -1,4 +1,3 @@
-import { ThemeSwitcher } from "../theme-switcher";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,6 +8,7 @@ import {
 } from "../ui/breadcrumb";
 import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
+import { ThemeSwitcher } from "./theme-switcher";
 
 export function Header() {
   return (

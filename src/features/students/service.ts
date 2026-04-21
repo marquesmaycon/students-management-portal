@@ -5,6 +5,11 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+  type Timestamp,
   updateDoc,
 } from "firebase/firestore";
 
@@ -16,9 +21,24 @@ export const studentsCol = collection(db, "students").withConverter(
   studentConverter,
 );
 
-export async function listStudents() {
-  const studentsSnapshot = await getDocs(studentsCol);
-  return studentsSnapshot.docs.map((doc) => doc.data());
+export type NextParam = Timestamp | null;
+
+export async function listStudents(pageParam: NextParam) {
+  const q = query(
+    studentsCol,
+    orderBy("createdAt", "desc"),
+    ...(pageParam ? [startAfter(pageParam)] : []),
+    limit(20),
+  );
+  const studentsSnapshot = await getDocs(q);
+  const docs = studentsSnapshot.docs.map((doc) => doc.data());
+
+  const lastDoc = studentsSnapshot.docs[studentsSnapshot.docs.length - 1];
+
+  return {
+    data: docs,
+    nextCursor: lastDoc?.data().createdAt ?? null,
+  };
 }
 
 export async function createStudent(data: StudentSchema) {

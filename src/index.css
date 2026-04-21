@@ -122,16 +122,23 @@
   * {
     @apply border-border outline-ring/50;
   }
+  * {
+    scrollbar-width: thin;
+  }
   body {
     @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
   }
+  html {
+    scrollbar-gutter: stable;
+  }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  
 }
 
 @layer utilities {

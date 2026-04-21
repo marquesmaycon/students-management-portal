@@ -1,4 +1,8 @@
-import { mutationOptions, queryOptions } from "@tanstack/react-query";
+import {
+  infiniteQueryOptions,
+  mutationOptions,
+  queryOptions,
+} from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import {
@@ -6,15 +10,18 @@ import {
   deleteStudent,
   getStudentById,
   listStudents,
+  type NextParam,
   updateStudent,
 } from "./service";
 import type { StudentSchema } from "./validation";
 
 const key = "students" as const;
 
-export const studentListOptions = queryOptions({
+export const studentListOptions = infiniteQueryOptions({
   queryKey: [key],
-  queryFn: listStudents,
+  queryFn: ({ pageParam }: { pageParam: NextParam }) => listStudents(pageParam),
+  initialPageParam: null,
+  getNextPageParam: (lp) => lp.nextCursor,
 });
 
 export const studentByIdOptions = (id?: string) =>
@@ -60,7 +67,13 @@ export const deleteStudentOptions = mutationOptions({
 
     client.setQueryData(studentListOptions.queryKey, (old) => {
       if (!old) return old;
-      return old.filter((u) => u.id !== id);
+      return {
+        ...old,
+        pages: old.pages.map((page) => ({
+          ...page,
+          data: page.data.filter((u) => u.id !== id),
+        })),
+      };
     });
 
     return { previousStudents };

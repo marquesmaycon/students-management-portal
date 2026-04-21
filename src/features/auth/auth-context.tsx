@@ -2,6 +2,7 @@ import { onAuthStateChanged, type User } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { auth } from "@/lib/firebase";
+import { queryClient } from "@/lib/tanstack-query";
 
 import { signOutUser } from "./service";
 
@@ -28,6 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function logout() {
     await signOutUser();
+    queryClient.clear();
   }
 
   return (

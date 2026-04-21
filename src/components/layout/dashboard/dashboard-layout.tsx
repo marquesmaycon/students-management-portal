@@ -21,7 +21,7 @@ export function DashboardLayout() {
       <SidebarInset>
         <Header />
 
-        <div className="bg-accent/33 flex flex-1 flex-col p-2">
+        <div className="dark:bg-accent/33 bg-accent flex flex-1 flex-col p-2">
           <Outlet />
         </div>
 

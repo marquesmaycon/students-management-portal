@@ -1,9 +1,11 @@
 "use client";
 
 import {
-  BotIcon,
-  GalleryVerticalEndIcon,
-  TerminalSquareIcon,
+  BookOpen,
+  BookUser,
+  GraduationCap,
+  LibraryBig,
+  University,
 } from "lucide-react";
 import * as React from "react";
 
@@ -20,49 +22,33 @@ import {
 import { TeamSwitcher } from "./team-switcher";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
-      name: "Portal do Professor",
-      logo: <GalleryVerticalEndIcon />,
+      name: "Vitru Educação",
+      logo: <GraduationCap />,
+      plan: "Professor Mediador",
+    },
+    {
+      name: "UNIASSELVI",
+      logo: <LibraryBig />,
+      plan: "Professor Mediador",
+    },
+    {
+      name: "Unicesumar",
+      logo: <University />,
       plan: "Professor Mediador",
     },
   ],
   navMain: [
     {
       title: "Alunos",
-      url: "#",
-      icon: <TerminalSquareIcon />,
-      isActive: true,
-      items: [
-        {
-          title: "Listagem",
-          url: "/students",
-        },
-        {
-          title: "Novo Aluno",
-          url: "/students/new",
-        },
-      ],
+      url: "/students",
+      icon: <BookUser />,
     },
     {
       title: "Cursos",
-      url: "#",
-      icon: <BotIcon />,
-      items: [
-        {
-          title: "Listagem",
-          url: "/courses",
-        },
-        {
-          title: "Novo Curso",
-          url: "/courses/new",
-        },
-      ],
+      url: "/courses",
+      icon: <BookOpen />,
     },
   ],
 };
@@ -77,7 +63,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

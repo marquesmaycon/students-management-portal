@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from "react-router";
 
+// import { AppSidebar } from "@/components/app-sidebar";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useAuth } from "@/features/auth/auth-context";
 
 import { Footer } from "./footer";
 import { Header } from "./header";
-
 export function DashboardLayout() {
   const { user } = useAuth();
 
@@ -16,7 +16,7 @@ export function DashboardLayout() {
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar variant="inset" />
 
       <SidebarInset>
         <Header />

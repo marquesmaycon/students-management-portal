@@ -3,8 +3,11 @@
 import {
   BookOpen,
   BookUser,
+  CircleHelpIcon,
   GraduationCap,
   LibraryBig,
+  SearchIcon,
+  Settings2Icon,
   University,
 } from "lucide-react";
 import * as React from "react";
@@ -19,6 +22,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
+import { NavSecondary } from "./nav-secondary";
 import { TeamSwitcher } from "./team-switcher";
 
 const data = {
@@ -51,6 +55,23 @@ const data = {
       icon: <BookOpen />,
     },
   ],
+  navSecondary: [
+    {
+      title: "Settings",
+      url: "#",
+      icon: <Settings2Icon />,
+    },
+    {
+      title: "Get Help",
+      url: "#",
+      icon: <CircleHelpIcon />,
+    },
+    {
+      title: "Search",
+      url: "#",
+      icon: <SearchIcon />,
+    },
+  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -61,6 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

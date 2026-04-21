@@ -53,15 +53,16 @@ export default function StudentsList() {
               <TableCell>
                 {student.createdAt.toDate().toLocaleDateString("pt-BR")}
               </TableCell>
-              <TableCell className="space-x-2 text-right">
+              <TableCell className="flex items-center justify-end space-x-2 text-right">
                 <Button asChild size="sm">
                   <Link to={`/students/${student.id}`}>
                     Visualizar <Eye />
                   </Link>
                 </Button>
                 <DestroyButton
-                  size="sm"
+                  size="icon-sm"
                   title="Excluir aluno"
+                  label=" "
                   destroy={() => destroy(student.id)}
                 />
               </TableCell>

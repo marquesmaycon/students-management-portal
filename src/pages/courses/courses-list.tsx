@@ -47,16 +47,17 @@ export default function CoursesList() {
               <TableCell>
                 {course.createdAt.toDate().toLocaleDateString("pt-BR")}
               </TableCell>
-              <TableCell className="space-x-2 text-right">
+              <TableCell className="flex items-center justify-end space-x-2 text-right">
                 <Button asChild size="sm">
                   <Link to={`/courses/${course.id}`}>
                     Visualizar <Eye />
                   </Link>
                 </Button>
                 <DestroyButton
-                  size="sm"
+                  size="icon-sm"
                   destroy={() => destroy(course.id)}
                   title="Excluir curso"
+                  label=" "
                 />
               </TableCell>
             </TableRow>

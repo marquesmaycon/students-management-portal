@@ -11,11 +11,9 @@ export default function CourseView() {
 
   return (
     <div className="page-wrapper">
-      <div className="p-4">
-        <h1 className="font-heading">
-          <span className="font-thin">Curso:</span> {course?.name}
-        </h1>
-      </div>
+      <h1 className="font-heading">
+        <span className="font-thin">Curso:</span> {course?.name}
+      </h1>
       <CourseForm defaultValues={course} />
     </div>
   );

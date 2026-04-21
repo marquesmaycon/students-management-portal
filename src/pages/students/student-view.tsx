@@ -11,11 +11,9 @@ export default function StudentView() {
 
   return (
     <div className="page-wrapper">
-      <div className="p-4">
-        <h1 className="font-heading">
-          <span className="font-thin">Aluno:</span> {student?.name}
-        </h1>
-      </div>
+      <h1 className="font-heading">
+        <span className="font-thin">Aluno:</span> {student?.name}
+      </h1>
       <StudentForm defaultValues={student} />
     </div>
   );

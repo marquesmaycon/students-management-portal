@@ -24,7 +24,7 @@ export default function CoursesList() {
 
   return (
     <div className="page-wrapper">
-      <div className="flex items-center justify-between p-4">
+      <div className="flex items-center justify-between">
         <h1 className="font-heading">Lista de Cursos</h1>
         <Button asChild>
           <Link to="/courses/new">
@@ -32,40 +32,38 @@ export default function CoursesList() {
           </Link>
         </Button>
       </div>
-      <div className="p-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-25">Nome</TableHead>
-              <TableHead>Criado em</TableHead>
-              <TableHead className="text-right">Ações</TableHead>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-25">Nome</TableHead>
+            <TableHead>Criado em</TableHead>
+            <TableHead className="text-right">Ações</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {courses?.map((course) => (
+            <TableRow key={course.id}>
+              <TableCell className="font-medium">{course.name}</TableCell>
+              <TableCell>
+                {course.createdAt.toDate().toLocaleDateString("pt-BR")}
+              </TableCell>
+              <TableCell className="space-x-2 text-right">
+                <Button asChild size="sm">
+                  <Link to={`/courses/${course.id}`}>
+                    Visualizar <Eye />
+                  </Link>
+                </Button>
+                <DestroyButton
+                  size="sm"
+                  destroy={() => destroy(course.id)}
+                  title="Excluir curso"
+                />
+              </TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {courses?.map((course) => (
-              <TableRow key={course.id}>
-                <TableCell className="font-medium">{course.name}</TableCell>
-                <TableCell>
-                  {course.createdAt.toDate().toLocaleDateString("pt-BR")}
-                </TableCell>
-                <TableCell className="space-x-2 text-right">
-                  <Button asChild size="sm">
-                    <Link to={`/courses/${course.id}`}>
-                      Visualizar <Eye />
-                    </Link>
-                  </Button>
-                  <DestroyButton
-                    size="sm"
-                    destroy={() => destroy(course.id)}
-                    title="Excluir curso"
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableCaption>Lista de todos os cursos</TableCaption>
-        </Table>
-      </div>
+          ))}
+        </TableBody>
+        <TableCaption>Lista de todos os cursos</TableCaption>
+      </Table>
     </div>
   );
 }

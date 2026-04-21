@@ -136,9 +136,13 @@
 
 @layer utilities {
   .page-wrapper {
-    @apply bg-background flex flex-1 flex-col rounded-lg;
+    @apply bg-background flex flex-1 flex-col rounded-lg p-4 space-y-4;
   }
   .page-title {
-    @apply font-heading text-2xl font-bold sm:text-4xl
+    @apply font-heading text-2xl font-bold sm:text-4xl;
+  }
+
+  .font-heading {
+    @apply text-2xl sm:text-4xl;
   }
 }

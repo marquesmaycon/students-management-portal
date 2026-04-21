@@ -61,7 +61,7 @@ export function CourseForm({ defaultValues }: { defaultValues?: Course }) {
       <form
         id="course-form"
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex h-full flex-col space-y-12 p-4"
+        className="flex h-full flex-col space-y-12"
       >
         <FieldGroup>
           <CourseInput name="name" label="Nome" />

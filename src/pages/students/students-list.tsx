@@ -24,7 +24,7 @@ export default function StudentsList() {
 
   return (
     <div className="page-wrapper">
-      <div className="flex items-center justify-between p-4">
+      <div className="flex items-center justify-between">
         <h1 className="font-heading">Lista de Alunos</h1>
         <Button asChild>
           <Link to="/students/new">
@@ -32,46 +32,44 @@ export default function StudentsList() {
           </Link>
         </Button>
       </div>
-      <div className="p-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-25">Nome</TableHead>
-              <TableHead>E-mail</TableHead>
-              <TableHead>Idade</TableHead>
-              <TableHead>Curso</TableHead>
-              <TableHead>Criado em</TableHead>
-              <TableHead className="text-right">Ações</TableHead>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-25">Nome</TableHead>
+            <TableHead>E-mail</TableHead>
+            <TableHead>Idade</TableHead>
+            <TableHead>Curso</TableHead>
+            <TableHead>Criado em</TableHead>
+            <TableHead className="text-right">Ações</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {students?.map((student) => (
+            <TableRow key={student.id}>
+              <TableCell className="font-medium">{student.name}</TableCell>
+              <TableCell>{student.email}</TableCell>
+              <TableCell>{student.age}</TableCell>
+              <TableCell>{student.courseName}</TableCell>
+              <TableCell>
+                {student.createdAt.toDate().toLocaleDateString("pt-BR")}
+              </TableCell>
+              <TableCell className="space-x-2 text-right">
+                <Button asChild size="sm">
+                  <Link to={`/students/${student.id}`}>
+                    Visualizar <Eye />
+                  </Link>
+                </Button>
+                <DestroyButton
+                  size="sm"
+                  title="Excluir aluno"
+                  destroy={() => destroy(student.id)}
+                />
+              </TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {students?.map((student) => (
-              <TableRow key={student.id}>
-                <TableCell className="font-medium">{student.name}</TableCell>
-                <TableCell>{student.email}</TableCell>
-                <TableCell>{student.age}</TableCell>
-                <TableCell>{student.courseName}</TableCell>
-                <TableCell>
-                  {student.createdAt.toDate().toLocaleDateString("pt-BR")}
-                </TableCell>
-                <TableCell className="space-x-2 text-right">
-                  <Button asChild size="sm">
-                    <Link to={`/students/${student.id}`}>
-                      Visualizar <Eye />
-                    </Link>
-                  </Button>
-                  <DestroyButton
-                    size="sm"
-                    title="Excluir aluno"
-                    destroy={() => destroy(student.id)}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableCaption>Lista de todos os alunos</TableCaption>
-        </Table>
-      </div>
+          ))}
+        </TableBody>
+        <TableCaption>Lista de todos os alunos</TableCaption>
+      </Table>
     </div>
   );
 }

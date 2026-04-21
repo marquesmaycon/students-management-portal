@@ -5,6 +5,7 @@ import {
   BookUser,
   CircleHelpIcon,
   GraduationCap,
+  LayoutDashboard,
   LibraryBig,
   SearchIcon,
   Settings2Icon,
@@ -44,6 +45,11 @@ const data = {
     },
   ],
   navMain: [
+    {
+      title: "Dashboard",
+      url: "/",
+      icon: <LayoutDashboard />,
+    },
     {
       title: "Alunos",
       url: "/students",

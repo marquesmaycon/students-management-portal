@@ -18,7 +18,7 @@ export function DashboardLayout() {
     <SidebarProvider>
       <AppSidebar variant="inset" />
 
-      <SidebarInset>
+      <SidebarInset className="min-w-0">
         <Header />
 
         <div className="dark:bg-accent/33 bg-accent flex flex-1 flex-col p-2">

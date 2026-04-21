@@ -3,6 +3,9 @@ import { createBrowserRouter } from "react-router";
 import { AuthLayout } from "./components/layout/auth/auth-layout";
 import { DashboardLayout } from "./components/layout/dashboard/dashboard-layout";
 import { SignInForm } from "./features/auth/sign-in-form";
+import { courseByIdOptions } from "./features/courses/query-options";
+import { studentByIdOptions } from "./features/students/query-options";
+import { queryClient } from "./lib/tanstack-query";
 import CourseCreation from "./pages/courses/course-creation";
 import CourseView from "./pages/courses/course-view";
 import CoursesList from "./pages/courses/courses-list";
@@ -27,6 +30,11 @@ export const router = createBrowserRouter([
       {
         path: "/students/:id",
         Component: StudentView,
+        loader: async ({ params }) => {
+          const { id } = params;
+          const { name } = await queryClient.fetchQuery(studentByIdOptions(id));
+          return name;
+        },
       },
       {
         path: "/students/new",
@@ -39,6 +47,11 @@ export const router = createBrowserRouter([
       {
         path: "/courses/:id",
         Component: CourseView,
+        loader: async ({ params }) => {
+          const { id } = params;
+          const { name } = await queryClient.fetchQuery(courseByIdOptions(id));
+          return name;
+        },
       },
       {
         path: "/courses/new",

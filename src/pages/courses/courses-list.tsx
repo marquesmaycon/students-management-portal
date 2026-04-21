@@ -25,7 +25,7 @@ export default function CoursesList() {
   return (
     <div className="page-wrapper">
       <div className="flex items-center justify-between p-4">
-        <h1 className="font-serif text-4xl font-bold">Lista de Cursos</h1>
+        <h1 className="font-heading">Lista de Cursos</h1>
         <Button asChild>
           <Link to="/courses/new">
             Novo Curso <Plus />
@@ -49,13 +49,13 @@ export default function CoursesList() {
                   {course.createdAt.toDate().toLocaleDateString("pt-BR")}
                 </TableCell>
                 <TableCell className="space-x-2 text-right">
-                  <Button asChild size="xs">
+                  <Button asChild size="sm">
                     <Link to={`/courses/${course.id}`}>
                       Visualizar <Eye />
                     </Link>
                   </Button>
                   <DestroyButton
-                    size="xs"
+                    size="sm"
                     destroy={() => destroy(course.id)}
                     title="Excluir curso"
                   />

@@ -9,7 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -24,7 +23,7 @@ export function TeamSwitcher({
 }: {
   teams: {
     name: string;
-    logo: React.ReactNode;
+    logo: React.ReactElement;
     plan: string;
   }[];
 }) {
@@ -44,7 +43,7 @@ export function TeamSwitcher({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="bg-accent text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+              <div className="text-sidebar-primary-foreground bg-accent-foreground dark:bg-accent flex aspect-square size-8 items-center justify-center rounded-lg">
                 {activeTeam.logo}
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -68,12 +67,12 @@ export function TeamSwitcher({
                 key={team.name}
                 onClick={() => setActiveTeam(team)}
                 className="gap-2 p-2"
+                disabled={index != 0}
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">
                   {team.logo}
                 </div>
                 {team.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
@@ -81,7 +80,9 @@ export function TeamSwitcher({
               <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
                 <PlusIcon className="size-4" />
               </div>
-              <div className="text-muted-foreground font-medium">Add team</div>
+              <div className="text-muted-foreground font-medium">
+                Novo ambiente
+              </div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -138,4 +138,7 @@
   .page-wrapper {
     @apply bg-background flex flex-1 flex-col rounded-lg;
   }
+  .page-title {
+    @apply font-heading text-2xl font-bold sm:text-4xl
+  }
 }

@@ -18,10 +18,10 @@ export function FormActions({
 }: FormActionsProps) {
   const form = useFormContext();
   return (
-    <div className="mt-auto flex w-full items-center justify-between gap-2">
+    <div className="mt-auto flex gap-2">
       <Button type="button" variant="outline" asChild>
         <Link to={backLink}>
-          Voltar <ArrowLeft />
+          <ArrowLeft /> Voltar
         </Link>
       </Button>
 
@@ -32,7 +32,7 @@ export function FormActions({
         disabled={isMutating}
         className="mr-auto"
       >
-        Resetar <RotateCcw />
+        <span className="hidden sm:inline">Resetar</span> <RotateCcw />
       </Button>
 
       {destroy && (
@@ -40,6 +40,7 @@ export function FormActions({
           destroy={() => destroy?.()}
           title="Excluir curso"
           disabled={isMutating}
+          className="[&>span]:hidden sm:[&>span]:inline"
         />
       )}
 

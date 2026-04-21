@@ -6,6 +6,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 export function NavMain({
@@ -18,8 +19,10 @@ export function NavMain({
   }[];
 }) {
   const { pathname } = useLocation();
+  const { setOpenMobile } = useSidebar();
+  
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+    <SidebarGroup>
       <SidebarGroupLabel>Gerenciamento</SidebarGroupLabel>
       <SidebarMenu className="space-y-1">
         {items.map(({ title, url, icon }) => {
@@ -30,7 +33,7 @@ export function NavMain({
           return (
             <SidebarMenuItem key={title}>
               <SidebarMenuButton asChild isActive={isActive}>
-                <NavLink to={url}>
+                <NavLink to={url} onClick={() => setOpenMobile(false)}>
                   {icon}
                   <span>{title}</span>
                 </NavLink>

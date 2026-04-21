@@ -27,7 +27,7 @@ export async function createStudent(data: StudentSchema) {
 }
 
 export async function getStudentById(id: string) {
-  const docRef = doc(studentsCol, id).withConverter(studentConverter);
+  const docRef = doc(studentsCol, id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {

@@ -31,7 +31,7 @@ export async function createCourse(data: CourseSchema) {
 }
 
 export async function getCourseById(id: string) {
-  const docRef = doc(coursesCol, id).withConverter(courseConverter);
+  const docRef = doc(coursesCol, id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {

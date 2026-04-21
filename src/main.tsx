@@ -7,6 +7,7 @@ import { RouterProvider } from "react-router";
 import { Providers } from "./providers.tsx";
 import { router } from "./routes.ts";
 
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Providers>

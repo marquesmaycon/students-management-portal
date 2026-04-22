@@ -9,11 +9,11 @@ import {
   orderBy,
   query,
   startAfter,
-  type Timestamp,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
-import { db } from "../../lib/firebase";
+import { db, type NextParam } from "../../lib/firebase";
 import { studentConverter } from "./converter";
 import type { StudentSchema } from "./validation";
 
@@ -21,12 +21,16 @@ export const studentsCol = collection(db, "students").withConverter(
   studentConverter,
 );
 
-export type NextParam = Timestamp | null;
-
-export async function listStudents(pageParam: NextParam) {
+export async function listStudents(pageParam: NextParam, search?: string) {
   const q = query(
     studentsCol,
-    orderBy("createdAt", "desc"),
+    ...(search
+      ? [
+          where("name", ">=", search),
+          where("name", "<=", search + "\uf8ff"),
+          orderBy("name"),
+        ]
+      : [orderBy("createdAt", "desc")]),
     ...(pageParam ? [startAfter(pageParam)] : []),
     limit(20),
   );
@@ -37,7 +41,7 @@ export async function listStudents(pageParam: NextParam) {
 
   return {
     data: docs,
-    nextCursor: lastDoc?.data().createdAt ?? null,
+    nextCursor: lastDoc ?? null,
   };
 }
 

@@ -1,5 +1,11 @@
-import { mutationOptions, queryOptions } from "@tanstack/react-query";
+import {
+  infiniteQueryOptions,
+  mutationOptions,
+  queryOptions,
+} from "@tanstack/react-query";
 import { toast } from "sonner";
+
+import type { NextParam } from "@/lib/firebase";
 
 import { studentListOptions } from "../students/query-options";
 import {
@@ -13,10 +19,14 @@ import type { CourseSchema } from "./validation";
 
 const key = "courses" as const;
 
-export const courseListOptions = queryOptions({
-  queryKey: [key],
-  queryFn: listCourses,
-});
+export const courseListOptions = (search?: string) =>
+  infiniteQueryOptions({
+    queryKey: [key, search],
+    queryFn: ({ pageParam }: { pageParam: NextParam }) =>
+      listCourses(pageParam, search),
+    initialPageParam: null,
+    getNextPageParam: (lp) => lp.nextCursor,
+  });
 
 export const courseByIdOptions = (id?: string) =>
   queryOptions({
@@ -34,7 +44,7 @@ export const createCourseOptions = mutationOptions({
     toast.error("Erro ao criar curso. Tente novamente.");
   },
   onSettled: (_, __, ___, ____, { client }) => {
-    client.invalidateQueries(courseListOptions);
+    client.invalidateQueries(courseListOptions());
   },
 });
 
@@ -48,21 +58,27 @@ export const updateCourseOptions = (id?: string) =>
       toast.error("Erro ao atualizar curso. Tente novamente.");
     },
     onSettled: (_, __, ___, ____, { client }) => {
-      client.invalidateQueries(courseListOptions);
-      client.invalidateQueries(studentListOptions);
+      client.invalidateQueries(courseListOptions());
+      client.invalidateQueries(studentListOptions());
     },
   });
 
 export const deleteCourseOptions = mutationOptions({
   mutationFn: deleteCourse,
   onMutate: async (id, { client }) => {
-    await client.cancelQueries(courseListOptions);
+    await client.cancelQueries(courseListOptions());
 
-    const previousCourses = client.getQueryData(courseListOptions.queryKey);
+    const previousCourses = client.getQueryData(courseListOptions().queryKey);
 
-    client.setQueryData(courseListOptions.queryKey, (old) => {
+    client.setQueryData(courseListOptions().queryKey, (old) => {
       if (!old) return old;
-      return old.filter((u) => u.id !== id);
+      return {
+        ...old,
+        pages: old.pages.map((page) => ({
+          ...page,
+          data: page.data.filter((u) => u.id !== id),
+        })),
+      };
     });
 
     return { previousCourses };
@@ -75,12 +91,12 @@ export const deleteCourseOptions = mutationOptions({
       description: err.message,
     });
     client.setQueryData(
-      courseListOptions.queryKey,
+      courseListOptions().queryKey,
       () => context?.previousCourses,
     );
   },
   onSettled: (_, __, ___, ____, { client }) => {
-    client.invalidateQueries(courseListOptions);
-    client.invalidateQueries(studentListOptions);
+    client.invalidateQueries(courseListOptions());
+    client.invalidateQueries(studentListOptions());
   },
 });

@@ -70,3 +70,8 @@ export async function deleteStudent(id: string) {
   const docRef = doc(studentsCol, id);
   await deleteDoc(docRef);
 }
+
+export async function studentsChart() {
+  const studentsSnapshot = await getDocs(studentsCol);
+  return studentsSnapshot.docs.map((s) => ({ ...s.data(), id: s.id }));
+}

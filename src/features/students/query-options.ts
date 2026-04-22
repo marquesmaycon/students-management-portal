@@ -12,6 +12,7 @@ import {
   deleteStudent,
   getStudentById,
   listStudents,
+  studentsChart,
   updateStudent,
 } from "./service";
 import type { StudentSchema } from "./validation";
@@ -97,4 +98,9 @@ export const deleteStudentOptions = mutationOptions({
   onSettled: (_, __, ___, ____, { client }) => {
     client.invalidateQueries(studentListOptions());
   },
+});
+
+export const studentsChartOptions = queryOptions({
+  queryKey: [key, "chart"],
+  queryFn: studentsChart,
 });

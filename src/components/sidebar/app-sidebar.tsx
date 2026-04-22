@@ -29,19 +29,19 @@ import { TeamSwitcher } from "./team-switcher";
 const data = {
   teams: [
     {
-      name: "Vitru Educação",
+      name: "Ambiente 1",
       logo: <GraduationCap />,
       plan: "Professor Mediador",
     },
     {
-      name: "UNIASSELVI",
+      name: "Ambiente 2",
       logo: <LibraryBig />,
-      plan: "Professor Mediador",
+      plan: "Professor",
     },
     {
-      name: "Unicesumar",
+      name: "Ambiente 3",
       logo: <University />,
-      plan: "Professor Mediador",
+      plan: "Gerente",
     },
   ],
   navMain: [

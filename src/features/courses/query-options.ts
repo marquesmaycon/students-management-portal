@@ -26,7 +26,8 @@ export const courseListOptions = (search: string = "") =>
     queryFn: ({ pageParam }: { pageParam: NextParam }) =>
       listCourses(pageParam, search),
     initialPageParam: null,
-    getNextPageParam: (lp) => lp.nextCursor,
+    getNextPageParam: (lastPage) =>
+      lastPage.data.length === 20 ? lastPage.nextCursor : null,
   });
 
 export const courseByIdOptions = (id?: string) =>

@@ -25,7 +25,8 @@ export const studentListOptions = (search: string = "") =>
     queryFn: ({ pageParam }: { pageParam: NextParam }) =>
       listStudents(pageParam, search),
     initialPageParam: null,
-    getNextPageParam: (lp) => lp.nextCursor,
+    getNextPageParam: (lastPage) =>
+      lastPage.data.length === 20 ? lastPage.nextCursor : null,
   });
 
 export const studentByIdOptions = (id?: string) =>

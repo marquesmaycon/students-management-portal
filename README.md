@@ -1,9 +1,9 @@
 ﻿# 🎓 Students Management Portal
 
 Um portal moderno de gerenciamento de alunos e cursos construído com React, Vite, TypeScript e Firebase. Apresenta autenticação segura, gerenciamento de estado avançado e uma interface intuitiva com componentes reutilizáveis.
-## 🔗 Demo Online
 
-> 🔄 Link da demo será adicionado em breve...
+## 🌐 Demo Online
+**[👉 VER PROJETO AO VIVO](https://students-management-portal-five.vercel.app/)**
 
 ## ✨ Características Principais
 

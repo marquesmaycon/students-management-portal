@@ -138,6 +138,9 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  body[data-scroll-locked="1"] {
+    margin-right: 0 !important;
+  }
   
 }
 

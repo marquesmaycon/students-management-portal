@@ -24,7 +24,6 @@ export function TeamSwitcher({
   teams: {
     name: string;
     logo: React.ReactElement;
-    plan: string;
   }[];
 }) {
   const { isMobile } = useSidebar();
@@ -43,12 +42,14 @@ export function TeamSwitcher({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="text-sidebar-primary-foreground bg-accent-foreground dark:bg-accent flex aspect-square size-8 items-center justify-center rounded-lg">
-                {activeTeam.logo}
+              <div className="text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                <img src="/favicon.svg" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{activeTeam.name}</span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
+                <span className="truncate font-medium">
+                  Portal do Professor
+                </span>
+                <span className="truncate text-xs">{activeTeam.name}</span>
               </div>
               <ChevronsUpDownIcon className="ml-auto" />
             </SidebarMenuButton>

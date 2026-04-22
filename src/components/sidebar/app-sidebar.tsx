@@ -31,17 +31,14 @@ const data = {
     {
       name: "Ambiente 1",
       logo: <GraduationCap />,
-      plan: "Professor Mediador",
     },
     {
       name: "Ambiente 2",
       logo: <LibraryBig />,
-      plan: "Professor",
     },
     {
       name: "Ambiente 3",
       logo: <University />,
-      plan: "Gerente",
     },
   ],
   navMain: [

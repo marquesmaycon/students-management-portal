@@ -10,7 +10,7 @@ import { createInputField } from "@/components/form/input-field";
 import { createSelectField } from "@/components/form/select-field";
 import { FieldGroup } from "@/components/ui/field";
 
-import { courseListOptions } from "../courses/query-options";
+import { coursesNoPaginationOptions } from "../courses/query-options";
 import {
   createStudentOptions,
   deleteStudentOptions,
@@ -35,7 +35,7 @@ export function StudentForm({ defaultValues }: { defaultValues?: Student }) {
     },
   });
 
-  const { data: courses } = useQuery(courseListOptions);
+  const { data: courses } = useQuery(coursesNoPaginationOptions);
 
   const { mutateAsync: create, isPending: isCreating } =
     useMutation(createStudentOptions);

@@ -84,3 +84,8 @@ export async function deleteCourse(id?: string) {
   const docRef = doc(coursesCol, id);
   await deleteDoc(docRef);
 }
+
+export async function coursesListNoPagination() {
+  const coursesSnapshot = await getDocs(coursesCol);
+  return coursesSnapshot.docs.map((s) => ({ ...s.data(), id: s.id }));
+}

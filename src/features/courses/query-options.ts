@@ -9,6 +9,7 @@ import type { NextParam } from "@/lib/firebase";
 
 import { studentListOptions } from "../students/query-options";
 import {
+  coursesListNoPagination,
   createCourse,
   deleteCourse,
   getCourseById,
@@ -34,6 +35,11 @@ export const courseByIdOptions = (id?: string) =>
     queryFn: () => getCourseById(id!),
     enabled: !!id,
   });
+
+export const coursesNoPaginationOptions = queryOptions({
+  queryKey: [key, "no-pagination"],
+  queryFn: coursesListNoPagination,
+});
 
 export const createCourseOptions = mutationOptions({
   mutationFn: createCourse,

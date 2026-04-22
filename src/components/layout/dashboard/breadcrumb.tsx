@@ -24,7 +24,7 @@ type Crumb = {
 function buildBreadcrumbs(pathname: string, data?: unknown): Crumb[] {
   const segments = pathname.split("/").filter(Boolean);
 
-  const crumbs: Crumb[] = [{ label: "Home", to: "/" }];
+  const crumbs: Crumb[] = [{ label: "Início", to: "/" }];
 
   let currentPath = "";
 

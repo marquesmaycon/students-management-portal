@@ -54,6 +54,7 @@ export default function StudentsList() {
         <Input
           id="search"
           className="w-fit"
+          placeholder="Primeira letra maíuscula"
           onChange={(ev) => setSearch(ev.target.value)}
         />
       </div>

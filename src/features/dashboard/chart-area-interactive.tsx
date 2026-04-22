@@ -16,11 +16,18 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { studentsChartOptions } from "../students/query-options";
-import { buildChartConfig, buildChartData, filterByRange } from "./utils";
+import { buildChartConfig, buildChartData, filterByRange } from "./generators";
 
 export const description = "An interactive area chart";
 
@@ -54,11 +61,33 @@ export function ChartAreaInteractive() {
             value={timeRange}
             onValueChange={(v) => v && setTimeRange(v)}
             variant="outline"
+            className="hidden *:data-[slot=toggle-group-item]:px-4! lg:flex"
           >
             <ToggleGroupItem value="90d">Últimos 3 meses</ToggleGroupItem>
             <ToggleGroupItem value="30d">Últimos 30 dias</ToggleGroupItem>
             <ToggleGroupItem value="7d">Últimos 7 dias</ToggleGroupItem>
           </ToggleGroup>
+
+          <Select value={timeRange} onValueChange={setTimeRange}>
+            <SelectTrigger
+              className="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate lg:hidden"
+              size="sm"
+              aria-label="Select a value"
+            >
+              <SelectValue placeholder="Last 3 months" />
+            </SelectTrigger>
+            <SelectContent className="rounded-xl">
+              <SelectItem value="90d" className="rounded-lg">
+                Últimos 3 meses
+              </SelectItem>
+              <SelectItem value="30d" className="rounded-lg">
+                Últimos 30 dias
+              </SelectItem>
+              <SelectItem value="7d" className="rounded-lg">
+                Últimos 7 dias
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </CardAction>
       </CardHeader>
 

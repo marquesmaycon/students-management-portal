@@ -135,6 +135,10 @@ src/
 
 ## 🎯 Decisões Arquiteturais e Técnicas
 
+> As chaves do Firebase são públicas por natureza no client. Foram mantidas em variáveis de ambiente para melhor organização e separação de ambientes (dev, test, prod).
+
+> Foram utilizadas bibliotecas como React Router, TanStack Query, React Hook Form, Zod e Shadcn/UI por serem amplamente adotadas no mercado e proporcionarem maior produtividade, padronização e qualidade no desenvolvimento.
+
 ### 📊 TanStack Query (React Query)
 
 O TanStack Query é utilizado para gerenciamento de estado do servidor, trazendo benefícios como:

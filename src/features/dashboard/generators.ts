@@ -4,7 +4,8 @@ import type { Student } from "../students/validation";
 
 type ChartData = {
   date: string;
-} & Record<string, number>;
+  [course: string]: string | number;
+};
 
 export function buildChartData(students: Student[] = []) {
   const map = new Map<string, Record<string, number>>();

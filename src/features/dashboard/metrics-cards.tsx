@@ -23,12 +23,11 @@ import {
 import { studentsChartOptions } from "../students/query-options";
 import { buildDashboardMetrics } from "./generators";
 
-export function SectionCards() {
+export function MetricsCards() {
   const { data: students } = useQuery(studentsChartOptions);
 
   const metrics = useMemo(() => buildDashboardMetrics(students), [students]);
 
-  console.log({ metrics });
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       <Card className="@container/card">
@@ -56,19 +55,13 @@ export function SectionCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Curso Mais Popular</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="line-clamp-2 text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {metrics.mostPopularCourse.name}
           </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <User />
-              {metrics.mostPopularCourse.total}
-            </Badge>
-          </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Maior volume de matrículas acumuladas
+            Maior volume de matrículas acumuladas <User className="size-4" />
           </div>
           <div className="text-muted-foreground">
             Representa o curso com maior adesão dos alunos

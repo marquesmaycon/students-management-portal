@@ -28,7 +28,7 @@ Um portal moderno de gerenciamento de alunos e cursos construído com React, Vit
 
 ```ash
 # 1. Clonar o repositório
-git clone <seu-repositorio>
+git clone https://github.com/marquesmaycon/students-management-portal
 cd students-management-portal
 
 # 2. Instalar dependências

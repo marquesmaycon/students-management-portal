@@ -20,7 +20,7 @@ import type { CourseSchema } from "./validation";
 
 const key = "courses" as const;
 
-export const courseListOptions = (search?: string) =>
+export const courseListOptions = (search: string = "") =>
   infiniteQueryOptions({
     queryKey: [key, search],
     queryFn: ({ pageParam }: { pageParam: NextParam }) =>

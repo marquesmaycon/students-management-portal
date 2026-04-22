@@ -19,7 +19,7 @@ import type { StudentSchema } from "./validation";
 
 const key = "students" as const;
 
-export const studentListOptions = (search?: string) =>
+export const studentListOptions = (search: string = "") =>
   infiniteQueryOptions({
     queryKey: [key, search],
     queryFn: ({ pageParam }: { pageParam: NextParam }) =>

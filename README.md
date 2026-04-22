@@ -12,6 +12,8 @@ Um portal moderno de gerenciamento de alunos e cursos construído com React, Vit
 
 > Foi implementada uma autenticação básica para aproximar o projeto de um cenário real de painel administrativo, além da inclusão de funcionalidades extras além do escopo proposto, com o objetivo de demonstrar capacidade técnica e potencial de evolução.
 
+> O código foi desenvolvido sem uso de IA como agente, com foco em demonstrar domínio técnico e tomada de decisão própria.
+
 ## ✨ Características Principais
 
 - 🔐 **Autenticação Firebase** - Login seguro com integração completa

@@ -5,7 +5,7 @@ Um portal moderno de gerenciamento de alunos e cursos construído com React, Vit
 ## 🌐 Demo Online
 **[👉 VER PROJETO AO VIVO](https://students-management-portal-five.vercel.app/)**
 
-# OBSERVAÇÕES IMPORANTES
+# 📌 OBSERVAÇÕES IMPORANTES
 > As chaves do Firebase são públicas por natureza no client. Foram mantidas em variáveis de ambiente para melhor organização e separação de ambientes (dev, test, prod).
 
 > Foram utilizadas bibliotecas como React Router, TanStack Query, React Hook Form, Zod e Shadcn/UI por serem amplamente adotadas no mercado e proporcionarem maior produtividade, padronização e qualidade no desenvolvimento.
@@ -33,9 +33,44 @@ Um portal moderno de gerenciamento de alunos e cursos construído com React, Vit
 - Conta Firebase (projeto configurado)
 - Variáveis de ambiente configuradas
 
-## Instalação
+## Firebase 🔥
 
-```ash
+### 1. Criar um Projeto Firebase
+
+- Acesse o [Console do Firebase](https://console.firebase.google.com/)
+- Crie um novo projeto
+- Adicione um novo app Web para o novo projeto
+- Copie suas credenciais ```firebaseConfig``` para salvarmos no .env
+
+### 2. Configurar Firestore Database
+
+- No menu **Categoria de produtos**, , procure por Firestore e crie um novo banco de dados
+- Na aba **Regras** deixe a service como:
+
+``` python
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      match /{document=**} {
+        allow read, write: if request.auth != null;
+      }
+    }
+  }
+```
+- Salve/publique as regras
+
+### 3. Configurar Authentication
+
+#### Habilitar Email/Senha:
+
+- No menu **Categoria de produtos**, procure por Authentication
+- Na aba **Métodos de login** ative a opção E-mail/senha
+- Na aba **Usuários** adicione um novo usuário
+
+> Sugestão: email: root@gmail.com, senha: 123456
+
+## 📥 Instalação
+
+```bash
 # 1. Clonar o repositório
 git clone https://github.com/marquesmaycon/students-management-portal
 cd students-management-portal
@@ -56,18 +91,18 @@ VITE_FIREBASE_APP_ID=seu_app_id
 VITE_FIREBASE_MEASUREMENT_ID=seu_measurement_id
 ```
 
-### Desenvolvimento
+### 💻 Desenvolvimento
 
-```ash
+```bash
 # Iniciar servidor de desenvolvimento
 npm run dev
 
 # O projeto abrirá em http://localhost:5173
 ```
 
-### Build para Produção
+### 🏗️ Build para Produção
 
-```ash
+```bash
 # Criar build otimizado
 npm run build
 
@@ -75,9 +110,9 @@ npm run build
 npm run preview
 ```
 
-### Verificação de Código
+### 🔧 Verificação de Código
 
-```ash
+```bash
 # Executar linter
 npm run lint
 ```
@@ -364,9 +399,9 @@ A aplicação é totalmente responsiva com:
 - Sidebar retrátil em mobile
 - Touch-friendly componentes
 
-### Debug com Devtools
+### 🐛 Debug com Devtools
 
-```ash
+```bash
 # React Query Devtools já está integrado
 # Acesse no canto inferior direito durante desenvolvimento
 ```

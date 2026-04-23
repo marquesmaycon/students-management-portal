@@ -73,17 +73,17 @@ export function NavUser() {
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheckIcon />
-                Account
+                Conta
               </DropdownMenuItem>
               <DropdownMenuItem disabled>
                 <BellIcon />
-                Notifications
+                Notificações
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => logout()}>
               <LogOutIcon />
-              Log out
+              Sair
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

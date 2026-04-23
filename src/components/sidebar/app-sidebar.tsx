@@ -60,17 +60,17 @@ const data = {
   ],
   navSecondary: [
     {
-      title: "Settings",
+      title: "Configurações",
       url: "#",
       icon: <Settings2Icon />,
     },
     {
-      title: "Get Help",
+      title: "Ajuda",
       url: "#",
       icon: <CircleHelpIcon />,
     },
     {
-      title: "Search",
+      title: "Busca",
       url: "#",
       icon: <SearchIcon />,
     },

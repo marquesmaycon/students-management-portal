@@ -10,7 +10,7 @@ import { queryClient } from "./lib/tanstack-query";
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <TooltipProvider>
           <AuthProvider>{children}</AuthProvider>
           <Toaster richColors />

@@ -46,11 +46,7 @@ export async function listStudents(pageParam: NextParam, search?: string) {
 }
 
 export async function createStudent(data: StudentSchema) {
-  const emailExists = await emailAlreadyExists(data.email);
-
-  if (emailExists) {
-    throw new Error("E-mail já existe. Por favor, use outro email.");
-  }
+  await assertEmailIsUnique(data.email);
 
   const docRef = await addDoc(studentsCol, data);
   return docRef.id;
@@ -68,11 +64,7 @@ export async function getStudentById(id: string) {
 }
 
 export async function updateStudent(id: string, data: StudentSchema) {
-  const emailExists = await emailAlreadyExists(data.email, id);
-
-  if (emailExists) {
-    throw new Error("E-mail já existe. Por favor, use outro email.");
-  }
+  await assertEmailIsUnique(data.email, id);
 
   const docRef = doc(studentsCol, id);
   await updateDoc(docRef, data);
@@ -90,6 +82,14 @@ export async function emailAlreadyExists(
   const q = query(studentsCol, where("email", "==", email.toLowerCase()));
   const studentsSnapshot = await getDocs(q);
   return studentsSnapshot.docs.some((doc) => doc.id !== ignoreId);
+}
+
+async function assertEmailIsUnique(email: string, ignoreId?: string) {
+  const exists = await emailAlreadyExists(email, ignoreId);
+
+  if (exists) {
+    throw new Error(`E-mail ${email} já existe. Por favor, use outro email.`);
+  }
 }
 
 export async function studentsChart() {

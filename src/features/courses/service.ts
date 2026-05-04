@@ -47,13 +47,7 @@ export async function listCourses(pageParam: NextParam, search?: string) {
 }
 
 export async function createCourse(data: CourseSchema) {
-  const courseExists = await courseAlreadyExists(data.name);
-
-  if (courseExists) {
-    throw new Error(
-      `Já existe um curso com esse nome ${data.name}. Por favor, escolha outro nome.`,
-    );
-  }
+  await assertNameIsUnique(data.name);
 
   const docRef = await addDoc(coursesCol, data);
   return docRef.id;
@@ -71,13 +65,7 @@ export async function getCourseById(id: string) {
 }
 
 export async function updateCourse(id: string, data: CourseSchema) {
-  const courseExists = await courseAlreadyExists(data.name, id);
-
-  if (courseExists) {
-    throw new Error(
-      `Já existe um curso com esse nome ${data.name}. Por favor, escolha outro nome.`,
-    );
-  }
+  await assertNameIsUnique(data.name, id);
 
   const courseRef = doc(coursesCol, id);
   await updateDoc(courseRef, data);
@@ -101,13 +89,23 @@ export async function deleteCourse(id?: string) {
   await deleteDoc(docRef);
 }
 
-export async function courseAlreadyExists(
+async function courseAlreadyExists(
   name: string,
   ignoreId?: string,
 ): Promise<boolean> {
   const q = query(coursesCol, where("name", "==", name));
   const coursesSnapshot = await getDocs(q);
   return coursesSnapshot.docs.some((doc) => doc.id !== ignoreId);
+}
+
+async function assertNameIsUnique(name: string, ignoreId?: string) {
+  const exists = await courseAlreadyExists(name, ignoreId);
+
+  if (exists) {
+    throw new Error(
+      `Já existe um curso com esse nome ${name}. Por favor, escolha outro nome.`,
+    );
+  }
 }
 
 export async function coursesListNoPagination() {

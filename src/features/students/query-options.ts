@@ -42,7 +42,7 @@ export const createStudentOptions = mutationOptions({
     toast.success("Aluno criado com sucesso!");
   },
   onError: (err) => {
-    toast.error("Erro ao criar aluno. Tente novamente.", {
+    toast.error("Erro ao criar aluno", {
       description:
         err.message ||
         "Verifique se o email já existe ou se os dados estão corretos.",
@@ -60,7 +60,7 @@ export const updateStudentOptions = (id?: string) =>
       toast.success("Aluno atualizado com sucesso!");
     },
     onError: (err) => {
-      toast.error("Erro ao atualizar aluno. Tente novamente.", {
+      toast.error("Erro ao atualizar aluno", {
         description:
           err.message ||
           "Verifique se o email já existe ou se os dados estão corretos.",

@@ -22,7 +22,7 @@ const courseNames = [
 
 const coursesCol = collection(db, "courses");
 
-export async function courseSeeder() {
+export async function seedCourses() {
   const batch = writeBatch(db);
 
   courseNames.forEach((name) => {

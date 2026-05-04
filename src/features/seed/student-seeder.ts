@@ -12,7 +12,7 @@ import { db } from "@/lib/firebase";
 const coursesCol = collection(db, "courses");
 const studentsCol = collection(db, "students");
 
-export async function studentSeeder() {
+export async function seedStudents(quantity: number = 100) {
   const coursesSnapshot = await getDocs(coursesCol);
 
   const courses = coursesSnapshot.docs.map((d) => ({
@@ -22,7 +22,7 @@ export async function studentSeeder() {
 
   const batch = writeBatch(db);
 
-  Array.from({ length: 100 }).forEach(() => {
+  Array.from({ length: quantity }).forEach(() => {
     const docRef = doc(studentsCol);
 
     const course = courses[Math.floor(Math.random() * courses.length)];

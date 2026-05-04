@@ -49,18 +49,18 @@ export function SignInForm() {
               <FieldGroup>
                 <SignInInput
                   name="email"
-                  label="Email"
+                  label="E-mail"
                   placeholder="m@example.com"
                 />
                 <SignInInput
                   name="password"
-                  label="Password"
+                  label="Senha"
                   type="password"
                   placeholder="*******"
                 />
                 <Field>
                   <Button type="submit" loading={isPending}>
-                    Login
+                    Entrar
                     <LogIn />
                   </Button>
                 </Field>

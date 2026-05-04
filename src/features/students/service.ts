@@ -46,6 +46,12 @@ export async function listStudents(pageParam: NextParam, search?: string) {
 }
 
 export async function createStudent(data: StudentSchema) {
+  const emailExists = await emailAlreadyExists(data.email);
+
+  if (emailExists) {
+    throw new Error("E-mail já existe. Por favor, use outro email.");
+  }
+
   const docRef = await addDoc(studentsCol, data);
   return docRef.id;
 }
@@ -57,11 +63,17 @@ export async function getStudentById(id: string) {
   if (docSnap.exists()) {
     return docSnap.data();
   } else {
-    throw new Error("Student not found");
+    throw new Error("Aluno não encontrado");
   }
 }
 
 export async function updateStudent(id: string, data: StudentSchema) {
+  const emailExists = await emailAlreadyExists(data.email, id);
+
+  if (emailExists) {
+    throw new Error("E-mail já existe. Por favor, use outro email.");
+  }
+
   const docRef = doc(studentsCol, id);
   await updateDoc(docRef, data);
 }
@@ -69,6 +81,15 @@ export async function updateStudent(id: string, data: StudentSchema) {
 export async function deleteStudent(id: string) {
   const docRef = doc(studentsCol, id);
   await deleteDoc(docRef);
+}
+
+export async function emailAlreadyExists(
+  email: string,
+  ignoreId?: string,
+): Promise<boolean> {
+  const q = query(studentsCol, where("email", "==", email.toLowerCase()));
+  const studentsSnapshot = await getDocs(q);
+  return studentsSnapshot.docs.some((doc) => doc.id !== ignoreId);
 }
 
 export async function studentsChart() {

@@ -1,9 +1,11 @@
 import { Timestamp } from "firebase/firestore";
 import z from "zod";
 
+import { formatNameBR } from "@/lib/utils";
+
 export const studentSchema = z.object({
-  name: z.string().min(1, "O nome é obrigatório"),
-  email: z.email(),
+  name: z.string().min(1, "O nome é obrigatório").transform(formatNameBR),
+  email: z.email().transform((email) => email.toLowerCase()),
   age: z.coerce
     .number<number>("A idade deve ser um número")
     .int("A idade deve ser um número inteiro")

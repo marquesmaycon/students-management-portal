@@ -47,8 +47,10 @@ export const createCourseOptions = mutationOptions({
   onSuccess: () => {
     toast.success("Curso criado com sucesso!");
   },
-  onError: () => {
-    toast.error("Erro ao criar curso. Tente novamente.");
+  onError: (err) => {
+    toast.error("Erro ao criar curso. Tente novamente.", {
+      description: err.message || "Verifique se o curso já existe.",
+    });
   },
   onSettled: (_, __, ___, ____, { client }) => {
     client.invalidateQueries(courseListOptions());
@@ -61,8 +63,10 @@ export const updateCourseOptions = (id?: string) =>
     onSuccess: () => {
       toast.success("Curso atualizado com sucesso!");
     },
-    onError: () => {
-      toast.error("Erro ao atualizar curso. Tente novamente.");
+    onError: (err) => {
+      toast.error("Erro ao atualizar curso. Tente novamente.", {
+        description: err.message || "Verifique se o curso já existe.",
+      });
     },
     onSettled: (_, __, ___, ____, { client }) => {
       client.invalidateQueries(courseListOptions());

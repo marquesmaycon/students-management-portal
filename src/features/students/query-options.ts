@@ -41,8 +41,12 @@ export const createStudentOptions = mutationOptions({
   onSuccess: () => {
     toast.success("Aluno criado com sucesso!");
   },
-  onError: () => {
-    toast.error("Erro ao criar aluno. Tente novamente.");
+  onError: (err) => {
+    toast.error("Erro ao criar aluno. Tente novamente.", {
+      description:
+        err.message ||
+        "Verifique se o email já existe ou se os dados estão corretos.",
+    });
   },
   onSettled: (_, __, ___, ____, { client }) => {
     client.invalidateQueries(studentListOptions());
@@ -55,8 +59,12 @@ export const updateStudentOptions = (id?: string) =>
     onSuccess: () => {
       toast.success("Aluno atualizado com sucesso!");
     },
-    onError: () => {
-      toast.error("Erro ao atualizar aluno. Tente novamente.");
+    onError: (err) => {
+      toast.error("Erro ao atualizar aluno. Tente novamente.", {
+        description:
+          err.message ||
+          "Verifique se o email já existe ou se os dados estão corretos.",
+      });
     },
     onSettled: (_, __, ___, ____, { client }) => {
       client.invalidateQueries(studentListOptions());

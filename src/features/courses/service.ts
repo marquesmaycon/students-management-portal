@@ -47,6 +47,14 @@ export async function listCourses(pageParam: NextParam, search?: string) {
 }
 
 export async function createCourse(data: CourseSchema) {
+  const courseExists = await courseAlreadyExists(data.name);
+
+  if (courseExists) {
+    throw new Error(
+      `Já existe um curso com esse nome ${data.name}. Por favor, escolha outro nome.`,
+    );
+  }
+
   const docRef = await addDoc(coursesCol, data);
   return docRef.id;
 }
@@ -58,11 +66,19 @@ export async function getCourseById(id: string) {
   if (docSnap.exists()) {
     return docSnap.data();
   } else {
-    throw new Error("Course not found");
+    throw new Error("Curso não encontrado");
   }
 }
 
 export async function updateCourse(id: string, data: CourseSchema) {
+  const courseExists = await courseAlreadyExists(data.name, id);
+
+  if (courseExists) {
+    throw new Error(
+      `Já existe um curso com esse nome ${data.name}. Por favor, escolha outro nome.`,
+    );
+  }
+
   const courseRef = doc(coursesCol, id);
   await updateDoc(courseRef, data);
 
@@ -83,6 +99,15 @@ export async function updateCourse(id: string, data: CourseSchema) {
 export async function deleteCourse(id?: string) {
   const docRef = doc(coursesCol, id);
   await deleteDoc(docRef);
+}
+
+export async function courseAlreadyExists(
+  name: string,
+  ignoreId?: string,
+): Promise<boolean> {
+  const q = query(coursesCol, where("name", "==", name));
+  const coursesSnapshot = await getDocs(q);
+  return coursesSnapshot.docs.some((doc) => doc.id !== ignoreId);
 }
 
 export async function coursesListNoPagination() {
